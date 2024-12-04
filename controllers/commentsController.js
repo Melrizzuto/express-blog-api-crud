@@ -3,17 +3,21 @@ const comments = require('../models/commentsData');
 function index(req, res) {
     let filteredComments = [...comments];
 
-    // Filtrare per type
+    // Filtrare per type con controllo
     if (req.query.type) {
         filteredComments = filteredComments.filter(comment =>
-            comment.tags.includes(req.query.type)
+            comment.type.toLowerCase().includes("like") &&
+            !comment.type.toLowerCase().includes("dislike")
         );
     }
-
     // Filtrare per content
     if (req.query.content) {
+        const queryContent = req.query.content.replace(/\s+/g, '').toLowerCase(); //utilizzo la regex per rimuovere tutti gli spazi
+
+        // Filtro i commenti con controllo
         filteredComments = filteredComments.filter(comment =>
-            comment.content.toLowerCase().includes(req.query.content.toLowerCase())
+            comment.content.replace(/\s+/g, '').toLowerCase().includes(queryContent) &&
+            !comment.content.replace(/\s+/g, '').toLowerCase().includes("non")
         );
     }
     // Filtrare per author

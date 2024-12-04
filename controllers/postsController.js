@@ -63,7 +63,7 @@ function destroy(req, res) {
         posts.splice(index, 1);
 
         // Stampo l'array aggiornato nella console
-        console.log(posts);
+        console.log('Lista dei post aggiornata:', posts);
 
         // Rispondo con lo stato 204 (nessun contenuto)
         res.status(204).send();
