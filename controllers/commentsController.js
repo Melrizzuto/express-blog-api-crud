@@ -37,7 +37,6 @@ function index(req, res) {
 // fn per leggere un commento (show)
 function show(req, res) {
     const commentId = parseInt(req.params.id);
-
     const comment = comments.find(comment => comment.id === commentId);
 
     //controllo
