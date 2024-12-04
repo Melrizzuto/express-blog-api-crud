@@ -5,10 +5,23 @@ function index(req, res) {
 
     // Filtrare per type con controllo
     if (req.query.type) {
-        filteredComments = filteredComments.filter(comment =>
-            comment.type.toLowerCase().includes("like") &&
-            !comment.type.toLowerCase().includes("dislike")
-        );
+        const type = req.query.type.toLowerCase();
+
+        //controllo
+        if (type === "like") {
+            // restituisco solo i commenti che hanno type a like
+            filteredComments = filteredComments.filter(comment =>
+                comment.type.toLowerCase() === "like"
+            );
+        } else if (type === "dislike") {
+            // restituisco solo i commenti che hanno type a dislike
+            filteredComments = filteredComments.filter(comment =>
+                comment.type.toLowerCase() === "dislike"
+            );
+        } else {
+            // Se il tipo non è "like" o "dislike" restituisco array vuoto
+            filteredComments = [];
+        }
     }
     // Filtrare per content
     if (req.query.content) {
