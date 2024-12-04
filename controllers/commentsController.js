@@ -9,12 +9,12 @@ function index(req, res) {
 
         //controllo
         if (type === "like") {
-            // restituisco solo i commenti che hanno type a like
+            // restituisco solo i commenti che hanno type = like
             filteredComments = filteredComments.filter(comment =>
                 comment.type.toLowerCase() === "like"
             );
         } else if (type === "dislike") {
-            // restituisco solo i commenti che hanno type a dislike
+            // restituisco solo i commenti che hanno type = dislike
             filteredComments = filteredComments.filter(comment =>
                 comment.type.toLowerCase() === "dislike"
             );
@@ -23,16 +23,28 @@ function index(req, res) {
             filteredComments = [];
         }
     }
+
     // Filtrare per content
     if (req.query.content) {
-        const queryContent = req.query.content.replace(/\s+/g, '').toLowerCase(); //utilizzo la regex per rimuovere tutti gli spazi
+        const queryContent = req.query.content.replace(/\s+/g, '').toLowerCase(); // uso regex per gli spazi
 
-        // Filtro i commenti con controllo
-        filteredComments = filteredComments.filter(comment =>
-            comment.content.replace(/\s+/g, '').toLowerCase().includes(queryContent) &&
-            !comment.content.replace(/\s+/g, '').toLowerCase().includes("non")
-        );
+        // se la query contiene la parola non, filtro i commenti che lo contengono
+        if (queryContent.includes("non")) {
+            filteredComments = filteredComments.filter(comment =>
+                comment.content.replace(/\s+/g, '').toLowerCase().includes("non")
+            );
+        } else {
+            // filtro i commenti che non contiengono la parola non
+            filteredComments = filteredComments.filter(comment =>
+                comment.content.replace(/\s+/g, '').toLowerCase().includes(queryContent) &&
+                !comment.content.replace(/\s+/g, '').toLowerCase().includes("non")
+            );
+        }
+    } else {
+        // Se non c'è content restituisco tutti i commenti
+        filteredComments = filteredComments;
     }
+
     // Filtrare per author
     if (req.query.author) {
         filteredComments = filteredComments.filter(comment =>
