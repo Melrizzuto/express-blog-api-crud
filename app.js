@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-// Importo il router dei post
-const postsRouter = require('./routers/posts');
+//importo i routers
+const postsRouter = require('./routers/postsRouter');
+const commentsRouter = require('./routers/commentsRouter');
 
 // Configuro gli asset statici
 app.use(express.static('public'));
@@ -13,8 +14,11 @@ app.get('/', (req, res) => {
     res.send('Server del mio blog');
 });
 
-// Usa il router dei post
+// uso il router dei post
 app.use('/posts', postsRouter);
+
+// uso il router dei commenti
+app.use('/comments', commentsRouter);
 
 // rotta fallback   
 app.all('*', (req, res) => {

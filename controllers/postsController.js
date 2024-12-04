@@ -1,6 +1,8 @@
-const posts = require('../models/posts');
+const posts = require('../models/postsData');
 
 // imposto le funzioni
+
+//get
 function index(req, res) {
     let filteredPosts = [...posts];
 
@@ -23,7 +25,7 @@ function index(req, res) {
         count: filteredPosts.length
     });
 };
-
+//get
 function show(req, res) {
     const postId = parseInt(req.params.id); //(req params sono url dinamici e ritorna una stringa)
     const post = posts.find(p => p.id == postId);
@@ -37,24 +39,23 @@ function show(req, res) {
         });
     }
 }
-
-
+//post
 function store(req, res) {
     res.send('Creazione nuovo post');
 }
-
+//put
 function modify(req, res) {
     const postId = req.params.id;
     res.send(`Modifica del post ${postId}`)
 }
-
+//patch
 function update(req, res) {
     const postId = req.params.id;
     res.send(`Aggiornamento del post ${postId}`)
 }
-
+//delete
 function destroy(req, res) {
-    const postId = parseInt(req.params.id); // Ottiengo l'ID del post dalla richiesta
+    const postId = parseInt(req.params.id); // Ottengo l'ID del post dalla richiesta
     const index = posts.findIndex(post => post.id === postId); // Trovo l'indice del post
 
     if (index !== -1) {
@@ -77,4 +78,4 @@ function destroy(req, res) {
 
 
 // esporto tutto
-module.exports = { index, show, store, modify, update, destroy }
+module.exports = { index, show, store, modify, update, destroy };
