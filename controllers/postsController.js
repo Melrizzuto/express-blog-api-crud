@@ -31,10 +31,13 @@ function show(req, res) {
     if (post) {
         res.json(post);
     } else {
-        res.status(404);
-        res.send("Error 404. Post non trovato")
+        res.status(404).json({
+            error: 404,
+            message: "Item not found."
+        });
     }
 }
+
 
 function store(req, res) {
     res.send('Creazione nuovo post');
