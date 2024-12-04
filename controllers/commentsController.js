@@ -1,5 +1,6 @@
 const comments = require('../models/commentsData');
 
+//fn per leggere tutti commenti (index) e filtrarli con i paramentri della query string
 function index(req, res) {
     let filteredComments = [...comments];
 
@@ -59,7 +60,7 @@ function index(req, res) {
     });
 };
 
-// fn per leggere un commento (show)
+// fn per leggere un commento per id (show)
 function show(req, res) {
     const commentId = parseInt(req.params.id);
     const comment = comments.find(comment => comment.id === commentId);
