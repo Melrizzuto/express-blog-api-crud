@@ -51,11 +51,27 @@ function update(req, res) {
 }
 
 function destroy(req, res) {
-    const postId = req.params.id;
-    res.send(`Cancellazione del post ${postId}`);
+    const postId = parseInt(req.params.id); // Ottiengo l'ID del post dalla richiesta
+    const index = posts.findIndex(post => post.id === postId); // Trovo l'indice del post
+
+    if (index !== -1) {
+        // Rimuovo il post dall'array
+        posts.splice(index, 1);
+
+        // Stampo l'array aggiornato nella console
+        console.log(posts);
+
+        // Rispondo con lo stato 204 (nessun contenuto)
+        res.status(204).send();
+    } else {
+        // Rispondo con un errore 404 se il post non esiste
+        res.status(404).json({
+            error: 404,
+            message: "Item not found."
+        });
+    }
 }
 
 
-
-// esportiamo tutto
+// esporto tutto
 module.exports = { index, show, store, modify, update, destroy }
