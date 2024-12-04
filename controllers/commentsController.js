@@ -16,6 +16,13 @@ function index(req, res) {
             comment.content.toLowerCase().includes(req.query.content.toLowerCase())
         );
     }
+    // Filtrare per author
+    if (req.query.author) {
+        filteredComments = filteredComments.filter(comment =>
+            comment.author.toLowerCase().includes(req.query.author.toLowerCase())
+        );
+    }
+
 
     res.json({
         filteredComments,
