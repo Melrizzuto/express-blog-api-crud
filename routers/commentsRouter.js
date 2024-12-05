@@ -1,8 +1,9 @@
+// importo Express
 const express = require('express');
+// imposto una variabile router con valore = ad istanza di express.router()
 const router = express.Router();
-
 //richiedo il file controller di commenti
-const commentsController = require('../controllers/commentsController');
+const commentsController = require('../controllers/commentsController'); // invece di app, utilizziamo router per definire le rotte
 
 //index
 router.get('/', commentsController.index);

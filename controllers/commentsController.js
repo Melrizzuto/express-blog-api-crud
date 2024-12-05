@@ -1,8 +1,7 @@
 const comments = require('../models/commentsData');
 const posts = require('../models/postsData');
 
-
-//fn per leggere tutti commenti (index) e filtrarli con i paramentri della query string
+//get (fn per leggere tutti commenti e filtrarli con i paramentri della query string)
 function index(req, res) {
     let filteredComments = [...comments];
 
@@ -68,8 +67,7 @@ function index(req, res) {
         count: filteredComments.length
     });
 };
-
-// fn per leggere un commento per id (show)
+//get (fn per leggere un commento per id)
 function show(req, res) {
     const commentId = parseInt(req.params.id);
     const comment = comments.find(comment => comment.id === commentId);
@@ -84,8 +82,7 @@ function show(req, res) {
         });
     }
 }
-
-//post
+//post (fn per aggiungere un commento (con id univoco) scegliendo il posts in base al post_id)
 function store(req, res) {
     const postId = parseInt(req.params.postId);  //prendo il postId dalla URL
     const post = posts.find(p => p.id === postId);  //cerco il post corrispondente
@@ -124,14 +121,12 @@ function modify(req, res) {
     const commentId = req.params.id;
     res.send(`Modifica del commento ${commentId}`);
 }
-
 //patch
 function update(req, res) {
     const commentId = req.params.id;
     res.send(`Aggiornamento del commento ${commentId}`);
 }
-
-// fn per cancellare un commento (delete)
+// delete (fn per cancellare un commento)
 function destroy(req, res) {
     const commentId = parseInt(req.params.id);
     const index = comments.findIndex(comment => comment.id === commentId);
@@ -146,6 +141,5 @@ function destroy(req, res) {
         });
     }
 }
-
 
 module.exports = { index, show, store, modify, update, destroy };
