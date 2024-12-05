@@ -14,9 +14,9 @@ router.get('/:id', postsController.show);
 // store
 router.post('/', postsController.store);
 // update
-router.put('/:id', postsController.modify);
+router.put('/:id', postsController.update);
 // modify
-router.patch('/:id', postsController.update);
+router.patch('/:id', postsController.modify);
 // destroy
 router.delete('/:id', postsController.destroy);
 

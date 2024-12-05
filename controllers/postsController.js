@@ -67,7 +67,7 @@ function store(req, res) {
     res.status(201).json(newPost);
 }
 //put
-function modify(req, res) {
+function update(req, res) {
     const postId = parseInt(req.params.id);
     const postIndex = posts.findIndex(p => p.id === postId);
 
@@ -84,11 +84,12 @@ function modify(req, res) {
     };
 
     posts[postIndex] = updatedPost;
+    console.log(updatedPost)
 
     res.status(200).json(updatedPost);
 }
 //patch
-function update(req, res) {
+function modify(req, res) {
     const postId = req.params.id;
     res.send(`Aggiornamento del post ${postId}`)
 }
