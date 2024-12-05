@@ -80,22 +80,28 @@ function show(req, res) {
 
 //post
 function store(req, res) {
-    let newId = 0;
-    for (let i = 0; i > comments.length; i++) {
-        comments[i] > newId
-        comments.push(comments[i]);
+    const postId = parseInt(req.params.postId);  //seleziono il postId da url
+    const post = posts.find(p => p.id === postId);  //verifico che il post esista
+    //se non esiste
+    if (!post) {
+        return res.status(404).json({
+            error: "Post not found"
+        });
     }
 
+    //se esiste, creo il nuovo commento
     const newComment = {
-        id: newId,
-        key1: req.body.key1,
-        key2: req.body.key2,
-        key3: req.body.key3
+        id: comments.length + 1,  //genero nuovo ID per commento
+        postId: postId,           //associo il commento al postId
+        content: req.body.content,
+        author: req.body.author,
+        type: req.body.type
+    };
 
-    }
-    res.status(201).json(newComment);
+    comments.push(newComment);  //aggiungo il commento all'array dei commenti
+
+    res.status(201).json(newComment);  //rispondo con il commento creato
 }
-
 //put
 function modify(req, res) {
     const commentId = req.params.id;

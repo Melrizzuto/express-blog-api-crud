@@ -42,26 +42,48 @@ function show(req, res) {
 }
 //post
 function store(req, res) {
+
     let newId = 0;
-    for (let i = 0; i > posts.length; i++) {
-        posts[i] > newId
-        posts.push(posts[i]);
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].id > newId) {
+            newId = posts[i].id;
+        }
     }
 
-    const newPosts = {
+    newId++;
+
+    const newPost = {
         id: newId,
         title: req.body.title,
         content: req.body.content,
         image: req.body.image,
         tags: req.body.tags
+    };
 
-    }
-    res.status(201).json(newPosts);
+    posts.push(newPost);
+
+    res.status(201).json(newPost);
 }
 //put
 function modify(req, res) {
-    const postId = req.params.id;
-    res.send(`Modifica del post ${postId}`)
+    const postId = parseInt(req.params.id);
+    const postIndex = posts.findIndex(p => p.id === postId);
+
+    if (postIndex === -1) {
+        return res.status(404).json({ error: 'Post non trovato' });
+    }
+
+    const updatedPost = {
+        id: postId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    };
+
+    posts[postIndex] = updatedPost;
+
+    res.status(200).json(updatedPost);
 }
 //patch
 function update(req, res) {
