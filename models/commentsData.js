@@ -15,14 +15,14 @@ const comments = [
     },
     {
         id: 3,
-        post_id: 2,
+        post_id: 5,
         content: "Mi piace molto!",
         author: "Daniela",
         type: "like"
     },
     {
         id: 4,
-        post_id: 1,
+        post_id: 2,
         content: "Non mi piace proprio!",
         author: "Antonio",
         type: "dislike"

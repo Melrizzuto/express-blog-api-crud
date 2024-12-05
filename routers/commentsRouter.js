@@ -11,7 +11,7 @@ router.get('/', commentsController.index);
 router.get('/:id', commentsController.show);
 
 //store
-router.post('/', commentsController.store);
+router.post('/:postId', commentsController.store);
 
 //update
 router.put('/:id', commentsController.modify);

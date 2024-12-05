@@ -1,9 +1,16 @@
 const comments = require('../models/commentsData');
+const posts = require('../models/postsData');
 
 
 //fn per leggere tutti commenti (index) e filtrarli con i paramentri della query string
 function index(req, res) {
     let filteredComments = [...comments];
+
+    // Filtrare per postId
+    if (req.query.post_id) {
+        const postId = parseInt(req.query.post_id);
+        filteredComments = filteredComments.filter(comment => comment.post_id === postId);
+    }
 
     // Filtrare per type con controllo
     if (req.query.type) {
@@ -80,27 +87,37 @@ function show(req, res) {
 
 //post
 function store(req, res) {
-    const postId = parseInt(req.params.postId);  //seleziono il postId da url
-    const post = posts.find(p => p.id === postId);  //verifico che il post esista
-    //se non esiste
+    const postId = parseInt(req.params.postId);  //prendo il postId dalla URL
+    const post = posts.find(p => p.id === postId);  //cerco il post corrispondente
+
+    // se il post non esiste
     if (!post) {
         return res.status(404).json({
             error: "Post not found"
         });
     }
 
-    //se esiste, creo il nuovo commento
+    //se il post esiste, creo il commento
+    let newId = 0;
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].id > newId) {
+            newId = posts[i].id;
+        }
+    }
+
+    newId++;
+
     const newComment = {
-        id: comments.length + 1,  //genero nuovo ID per commento
-        postId: postId,           //associo il commento al postId
+        id: newId,  //assegno un ID al nuovo commento
+        post_id: postId, //associa il commento al postId
         content: req.body.content,
         author: req.body.author,
         type: req.body.type
     };
 
-    comments.push(newComment);  //aggiungo il commento all'array dei commenti
-
-    res.status(201).json(newComment);  //rispondo con il commento creato
+    comments.push(newComment);//aggiungo il commento all'array dei commenti
+    console.log(newComment)
+    res.status(201).json(newComment);  //restituisco il commento creato
 }
 //put
 function modify(req, res) {
