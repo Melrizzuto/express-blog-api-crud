@@ -1,4 +1,5 @@
 const posts = require('../models/postsData');
+const comments = require('../models/commentsData')
 
 // imposto le funzioni
 
@@ -41,7 +42,21 @@ function show(req, res) {
 }
 //post
 function store(req, res) {
-    res.send('Creazione nuovo post');
+    let newId = 0;
+    for (let i = 0; i > posts.length; i++) {
+        posts[i] > newId
+        posts.push(posts[i]);
+    }
+
+    const newPosts = {
+        id: newId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+
+    }
+    res.status(201).json(newPosts);
 }
 //put
 function modify(req, res) {

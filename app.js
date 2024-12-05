@@ -6,6 +6,8 @@ const PORT = 3000;
 const postsRouter = require('./routers/postsRouter');
 const commentsRouter = require('./routers/commentsRouter');
 
+app.use(express.json());
+
 // Configuro gli asset statici
 app.use(express.static('public'));
 

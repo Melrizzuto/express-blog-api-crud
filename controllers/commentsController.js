@@ -1,5 +1,6 @@
 const comments = require('../models/commentsData');
 
+
 //fn per leggere tutti commenti (index) e filtrarli con i paramentri della query string
 function index(req, res) {
     let filteredComments = [...comments];
@@ -44,6 +45,7 @@ function index(req, res) {
     } else {
         // Se non c'è content restituisco tutti i commenti
         filteredComments = filteredComments;
+        count = filteredComments.length
     }
 
     // Filtrare per author
@@ -75,20 +77,37 @@ function show(req, res) {
         });
     }
 }
+
 //post
 function store(req, res) {
-    res.send('Creazione nuovo commento');
+    let newId = 0;
+    for (let i = 0; i > comments.length; i++) {
+        comments[i] > newId
+        comments.push(comments[i]);
+    }
+
+    const newComment = {
+        id: newId,
+        key1: req.body.key1,
+        key2: req.body.key2,
+        key3: req.body.key3
+
+    }
+    res.status(201).json(newComment);
 }
+
 //put
 function modify(req, res) {
     const commentId = req.params.id;
     res.send(`Modifica del commento ${commentId}`);
 }
+
 //patch
 function update(req, res) {
     const commentId = req.params.id;
     res.send(`Aggiornamento del commento ${commentId}`);
 }
+
 // fn per cancellare un commento (delete)
 function destroy(req, res) {
     const commentId = parseInt(req.params.id);
@@ -104,5 +123,6 @@ function destroy(req, res) {
         });
     }
 }
+
 
 module.exports = { index, show, store, modify, update, destroy };
