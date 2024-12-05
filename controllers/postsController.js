@@ -60,7 +60,9 @@ function store(req, res) {
         tags: req.body.tags
     };
 
+
     posts.push(newPost);
+    console.log(newPost)
 
     res.status(201).json(newPost);
 }
