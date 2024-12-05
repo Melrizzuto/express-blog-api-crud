@@ -1,5 +1,4 @@
 const posts = require('../models/postsData');
-const comments = require('../models/commentsData')
 
 // imposto le funzioni
 
