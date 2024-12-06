@@ -6,6 +6,9 @@ const PORT = 3000;
 const postsRouter = require('./routers/postsRouter');
 const commentsRouter = require('./routers/commentsRouter');
 const errorsHandler = require('./middlewares/errorHandler');
+const errorsHandler = require('./middlewares/notFound');
+const notFound = require('./middlewares/notFound');
+
 
 //middleware per body parsing
 app.use(express.json());
@@ -26,13 +29,13 @@ app.use('/posts', postsRouter);
 //per commenti
 app.use('/comments', commentsRouter);
 
-// rotta fallback   
-app.all('*', (req, res) => {
-    res.status(404).send(`<h1>Error 404. Page not found</h1>`)
-});
+// rotte di fallback
 
 //middleware per errore di sistema
 app.use(errorsHandler);
+
+//middleware per gestire tutti gli errori (tranne il 505)
+app.use(notFound);
 
 // Avvio del server
 app.listen(PORT, () => {
