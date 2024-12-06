@@ -2,15 +2,15 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-//importo i routers
+// Importo i routers
 const postsRouter = require('./routers/postsRouter');
 const commentsRouter = require('./routers/commentsRouter');
+
+// Importo i middleware
 const errorsHandler = require('./middlewares/errorHandler');
-const errorsHandler = require('./middlewares/notFound');
 const notFound = require('./middlewares/notFound');
 
-
-//middleware per body parsing
+// Middleware per body parsing
 app.use(express.json());
 
 // Configuro gli asset statici
@@ -21,21 +21,15 @@ app.get('/', (req, res) => {
     res.send('Server del mio blog');
 });
 
-//middleware per router
-
-//per posts
+// Middleware per router
 app.use('/posts', postsRouter);
-
-//per commenti
 app.use('/comments', commentsRouter);
 
-// rotte di fallback
-
-//middleware per errore di sistema
-app.use(errorsHandler);
-
-//middleware per gestire tutti gli errori (tranne il 505)
+// Middleware per gestire le rotte non registrate
 app.use(notFound);
+
+// Middleware per la gestione degli errori generici
+app.use(errorsHandler);
 
 // Avvio del server
 app.listen(PORT, () => {
