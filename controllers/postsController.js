@@ -2,7 +2,7 @@ const posts = require('../models/postsData');
 
 // imposto le funzioni
 
-//get
+//get (lettura)
 function index(req, res) {
     let filteredPosts = [...posts];
 
@@ -25,7 +25,7 @@ function index(req, res) {
         count: filteredPosts.length
     });
 };
-//get
+//get (lettura)
 function show(req, res) {
     const postId = parseInt(req.params.id); //(req params sono url dinamici e ritorna una stringa)
     const post = posts.find(p => p.id == postId);
@@ -39,7 +39,7 @@ function show(req, res) {
         });
     }
 }
-//post
+//post (creazione)
 function store(req, res) {
 
     let newId = 0;
@@ -65,7 +65,7 @@ function store(req, res) {
 
     res.status(201).json(newPost);
 }
-//put
+//put (aggiornamento)
 function update(req, res) {
     const postId = parseInt(req.params.id);
     const postIndex = posts.findIndex(p => p.id === postId);
@@ -87,12 +87,12 @@ function update(req, res) {
 
     res.status(200).json(updatedPost);
 }
-//patch
+//patch (modifica)
 function modify(req, res) {
     const postId = req.params.id;
     res.send(`Aggiornamento del post ${postId}`)
 }
-//delete
+//delete (cancellazione)
 function destroy(req, res) {
     const postId = parseInt(req.params.id); // Ottengo l'ID del post dalla richiesta
     const index = posts.findIndex(post => post.id === postId); // Trovo l'indice del post

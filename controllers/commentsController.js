@@ -82,7 +82,7 @@ function show(req, res) {
         });
     }
 }
-//post (fn per aggiungere un commento (con id univoco) scegliendo il posts in base al post_id)
+//post (fn per creare un commento (con id univoco) scegliendo il posts in base al post_id)
 function store(req, res) {
     const postId = parseInt(req.params.postId);  //prendo il postId dalla URL
     const post = posts.find(p => p.id === postId);  //cerco il post corrispondente
@@ -116,13 +116,13 @@ function store(req, res) {
     console.log(newComment)
     res.status(201).json(newComment);  //restituisco il commento creato
 }
-//put
-function modify(req, res) {
+//put (fn per aggiornare un commento)
+function update(req, res) {
     const commentId = req.params.id;
     res.send(`Modifica del commento ${commentId}`);
 }
 //patch
-function update(req, res) {
+function modify(req, res) {
     const commentId = req.params.id;
     res.send(`Aggiornamento del commento ${commentId}`);
 }
