@@ -7,7 +7,7 @@ const postsRouter = require('./routers/postsRouter');
 const commentsRouter = require('./routers/commentsRouter');
 
 // Importo i middleware
-const errorsHandler = require('./middlewares/errorHandler');
+const errorsHandler = require('./middlewares/errorsHandler');
 const notFound = require('./middlewares/notFound');
 
 // Middleware per body parsing
