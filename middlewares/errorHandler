@@ -1,0 +1,9 @@
+function errorsHandler(err, req, res, next) {
+    res.status(505);
+    res.json({
+        error: 505,
+        message: "Something broke"
+    })
+}
+
+module.exports = errorsHandler;
