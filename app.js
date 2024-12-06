@@ -25,11 +25,11 @@ app.get('/', (req, res) => {
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 
-// Middleware per gestire le rotte non registrate
-app.use(notFound);
-
 // Middleware per la gestione degli errori generici
 app.use(errorsHandler);
+
+// Middleware per gestire le rotte non registrate
+app.use(notFound);
 
 // Avvio del server
 app.listen(PORT, () => {
